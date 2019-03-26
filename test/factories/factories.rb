@@ -9,3 +9,21 @@ FactoryBot.define do
 		end
 	end
 end
+
+FactoryBot.define do
+	factory :post do
+		factory :valid_post do
+			title {Faker::Lorem.sentence}
+			body {Faker::Lorem.paragraph}			
+		end
+	end
+end
+
+FactoryBot.define do
+	factory :comment do
+		factory :valid_comment do
+			title {Faker::Lorem.sentence}
+			body {Faker::Lorem.paragraph}			
+		end
+	end
+end
