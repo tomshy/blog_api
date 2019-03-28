@@ -2,7 +2,8 @@ require 'test_helper'
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
   setup do    
-    @user=build_stubbed(:valid_user)    
+    @user=build_stubbed(:valid_user) 
+    sign_in @user
   end
 
   test "should get index" do      
