@@ -2,7 +2,7 @@ require 'test_helper'
 
 class PostsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @post = posts(:one)
+    @post = create(:valid_post)    
   end
 
   test "should get index" do
@@ -12,25 +12,27 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create post" do
     assert_difference('Post.count') do
-      post posts_url, params: { post: { body: @post.body, title: @post.title, user_id: @post.user_id } }, as: :json
+      # binding.pry
+      post posts_url, params: { post: { body: @post.body, title: @post.title, user_id: @post.user_id } }, as: :json, headers: @auth_headers
     end
-
     assert_response 201
   end
 
-  test "should show post" do
-    get post_url(@post), as: :json
+  test "should show post" do 
+    # binding.pry   
+    get post_url(id: @post.id), as: :json
     assert_response :success
+
   end
 
-  test "should update post" do
-    patch post_url(@post), params: { post: { body: @post.body, title: @post.title, user_id: @post.user_id } }, as: :json
+  test "should update post" do    
+    patch post_url(id: @post.id), params: { post: { body: @post.body, title: @post.title, user_id: @post.user_id } }, as: :json, headers: @auth_headers
     assert_response 200
   end
 
   test "should destroy post" do
     assert_difference('Post.count', -1) do
-      delete post_url(@post), as: :json
+      delete post_url(id: @post.id), as: :json, headers: @auth_headers
     end
 
     assert_response 204
