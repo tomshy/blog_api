@@ -2,35 +2,40 @@ require 'test_helper'
 
 class CommentsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @comment = comments(:one)
+    @comment = create(:valid_comment)    
   end
 
   test "should get index" do
-    get comments_url, as: :json
+    get post_comments_url(post_id: @comment.post_id), as: :json
     assert_response :success
   end
 
   test "should create comment" do
-    assert_difference('Comment.count') do
-      post comments_url, params: { comment: { body: @comment.body, post_id: @comment.post_id, title: @comment.title, user_id: @comment.user_id } }, as: :json
-    end
-
+     assert_difference('Comment.count',1) do
+      post post_comments_url(post_id: @comment.post_id), params: { comment: { body: @comment.body, post_id: @comment.post_id, title: @comment.title, user_id: @comment.user_id } }, as: :json
+     end
+    # binding.pry
     assert_response 201
   end
 
   test "should show comment" do
-    get comment_url(@comment), as: :json
+
+    get post_comments_url(post_id: @comment.post_id, id: @comment.id), as: :json
     assert_response :success
   end
 
-  test "should update comment" do
-    patch comment_url(@comment), params: { comment: { body: @comment.body, post_id: @comment.post_id, title: @comment.title, user_id: @comment.user_id } }, as: :json
+  test "should update comment" do    
+    # skip
+    patch post_comment_url(post_id: @comment.post_id, id: @comment.id), params: { comment: { body: @comment.body, post_id: @comment.post_id, title: @comment.title, user_id: @comment.user_id } }, as: :json
+    # binding.pry
     assert_response 200
   end
 
   test "should destroy comment" do
+    # skip
     assert_difference('Comment.count', -1) do
-      delete comment_url(@comment), as: :json
+      delete post_comment_url(post_id: @comment.post_id, id: @comment.id), as: :json
+      # binding.pry
     end
 
     assert_response 204
