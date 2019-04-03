@@ -13,7 +13,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   test "should create post" do
     assert_difference('Post.count') do
       # binding.pry
-      post posts_url, params: { post: { body: @post.body, title: @post.title, user_id: @post.user_id } }, as: :json, headers: @auth_headers
+      post posts_url, params: { data: { body: @post.body, title: @post.title, user_id: @post.user_id } }, as: :json, headers: @auth_headers
     end
     assert_response 201
   end
@@ -26,7 +26,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update post" do    
-    patch post_url(id: @post.id), params: { post: { body: @post.body, title: @post.title, user_id: @post.user_id } }, as: :json, headers: @auth_headers
+    patch post_url(id: @post.id), params: { data: { body: @post.body, title: @post.title, user_id: @post.user_id } }, as: :json, headers: @auth_headers
     assert_response 200
   end
 
