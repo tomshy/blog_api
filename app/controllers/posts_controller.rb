@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
+  include Authenticatable
   before_action :set_post, only: [:show, :update, :destroy]
-  # before_action :authenticate, only: [:create, :update, :destroy]
-  # http_basic_authenticate_with name: 'user', password: 'secret', except: :index
+
   # GET /posts
   def index
     @posts = Post.all

@@ -2,7 +2,8 @@ require 'test_helper'
 
 class PostsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @post = create(:valid_post)    
+    @post = create(:valid_post) 
+    @auth_headers = { 'Authorization' => "Basic #{Base64.encode64('user:secret')}" }   
   end
 
   test "should get index" do
@@ -34,7 +35,6 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert_difference('Post.count', -1) do
       delete post_url(id: @post.id), as: :json, headers: @auth_headers
     end
-
     assert_response 204
   end
 end

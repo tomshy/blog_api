@@ -2,7 +2,8 @@ require 'test_helper'
 
 class CommentsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @comment = create(:valid_comment)    
+    @comment = create(:valid_comment) 
+    @auth_headers = { 'Authorization' => "Basic #{Base64.encode64('user:secret')}" }      
   end
 
   test "should get index" do

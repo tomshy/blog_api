@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: :show
-
+  
   # GET /users
   def index
     @users = User.all
